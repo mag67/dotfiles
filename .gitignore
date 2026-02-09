@@ -1,0 +1,28 @@
+# 秘密情報・認証
+*.pem
+*.key
+id_*
+hosts.yml
+.credentials.json
+settings.local.json
+
+# キャッシュ・ログ
+*.log
+debug/
+cache/
+history.jsonl
+stats-cache.json
+statsig/
+
+# OS生成ファイル
+.DS_Store
+Thumbs.db
+
+# シェル履歴・状態
+.zsh_history
+.bash_history
+.zcompdump*
+
+# Codex CLI ランタイムファイル
+codex/.codex/history/
+codex/.codex/cache/

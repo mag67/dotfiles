@@ -1,0 +1,27 @@
+# Codex CLI ユーザー設定
+# https://github.com/openai/codex
+
+# ChatGPT アカウントでログイン（Pro プラン）
+forced_login_method = "chatgpt"
+
+# 最高性能モデル（Pro プランで利用可能）
+model = "gpt-5.3-codex"
+
+# 最大の推論トークン量
+model_reasoning_effort = "xhigh"
+
+# コマンド実行確認ポリシー（suggest: 毎回確認）
+approval_policy = "suggest"
+
+# サンドボックスモード（workspace-write: ワークスペース書き込み可）
+sandbox_mode = "workspace-write"
+
+# Web検索
+web_search = "cached"
+
+# 応答スタイル
+model_personality = "pragmatic"
+
+# 履歴保存
+[history]
+persistence = "save-all"
