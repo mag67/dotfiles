@@ -54,10 +54,10 @@
 - **選定**: cd の代替。訪問頻度ベースのディレクトリジャンプ
 - **比較**: autojump, z
 
-### yazi
+### neo-tree（LazyVim 組み込み）
 
-- **選定**: 高速なターミナルファイルマネージャ。非同期 I/O・画像プレビュー対応
-- **比較**: ranger, lf
+- **選定**: LazyVim デフォルトのファイルエクスプローラ。追加設定不要で `<leader>e` 等のキーマップが使える
+- **比較**: yazi, ranger, oil.nvim
 
 ## dotfiles 管理: GNU Stow
 
