@@ -262,12 +262,19 @@ plugins {
 }
 
 load_plugins {
+    // Neovim 起動時に Zellij を自動ロック（キーバインド衝突を防止）
+    autolock location="https://github.com/fresh2dev/zellij-autolock/releases/latest/download/zellij-autolock.wasm" {
+        triggers "nvim|vim"
+        watch_triggers "fzf|zoxide|atuin"
+        watch_interval "1.0"
+    }
 }
 
 web_client {
     font "monospace"
 }
 
+default_layout "dev"
 theme "default"
 mouse_mode true
 pane_frames true
