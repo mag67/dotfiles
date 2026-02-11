@@ -20,11 +20,7 @@ config.font_size = is_macos and 14.0 or 11.0
 config.color_scheme = 'Tokyo Night'
 
 -- ===== ウィンドウ =====
-if is_macos then
-  config.window_decorations = 'RESIZE'
-else
-  config.window_decorations = 'TITLE | RESIZE'
-end
+config.window_decorations = 'TITLE | RESIZE'
 config.window_padding = { left = 4, right = 4, top = 4, bottom = 4 }
 -- Zellij でタブ管理するので WezTerm のタブバーは非表示
 config.enable_tab_bar = false
