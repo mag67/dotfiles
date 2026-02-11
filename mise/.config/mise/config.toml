@@ -1,7 +1,7 @@
 [tools]
-fd = "10.3.0"
-fzf = "0.67.0"
-lazygit = "0.59.0"
-node = "24.6.0"
-ripgrep = "15.1.0"
-zoxide = "0.9.9"
+fd = "latest"
+fzf = "latest"
+lazygit = "latest"
+node = "latest"
+ripgrep = "latest"
+zoxide = "latest"

@@ -29,6 +29,9 @@ command -v mise &>/dev/null && eval "$(mise activate zsh)"
 # zoxide（ディレクトリ履歴ジャンプ）
 command -v zoxide &>/dev/null && eval "$(zoxide init zsh)"
 
+# fzf（ファジーファインダー）
+command -v fzf &>/dev/null && eval "$(fzf --zsh)"
+
 # WezTerm Shell Integration
 [ -n "$WEZTERM_EXECUTABLE" ] && [ -f ~/.config/wezterm/wezterm.sh ] && source ~/.config/wezterm/wezterm.sh
 
