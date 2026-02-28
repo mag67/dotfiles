@@ -1,0 +1,23 @@
+#!/bin/bash
+# claude-parallel — worktree + tmux で Claude Code を並列起動
+# Usage: claude-parallel <worktree-name-1> [worktree-name-2] [...]
+
+SESSION="claude-$(basename "$(pwd)")"
+
+if [ $# -lt 1 ]; then
+  echo "Usage: claude-parallel <name1> [name2] ..."
+  echo "Example: claude-parallel feature-auth bugfix-123 refactor-api"
+  exit 1
+fi
+
+# tmux セッション作成
+tmux new-session -d -s "$SESSION" -n "$1"
+tmux send-keys -t "$SESSION" "claude --worktree $1" Enter
+
+shift
+for name in "$@"; do
+  tmux new-window -t "$SESSION" -n "$name"
+  tmux send-keys -t "$SESSION:$name" "claude --worktree $name" Enter
+done
+
+tmux attach -t "$SESSION"

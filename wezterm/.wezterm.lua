@@ -22,7 +22,7 @@ config.color_scheme = 'Tokyo Night'
 -- ===== ウィンドウ =====
 config.window_decorations = 'TITLE | RESIZE'
 config.window_padding = { left = 4, right = 4, top = 4, bottom = 4 }
--- Zellij でタブ管理するので WezTerm のタブバーは非表示
+-- tmux でセッション管理するので WezTerm のタブバーは非表示
 config.enable_tab_bar = false
 
 -- ===== パフォーマンス =====
@@ -36,9 +36,12 @@ config.default_cursor_style = 'SteadyBlock'
 -- ===== IME（日本語入力） =====
 config.use_ime = true
 
+-- ===== Neovim互換 =====
+config.use_dead_keys = false
+
 -- ===== キーバインド =====
--- Zellij が Ctrl+b/p/t/o/s/n/h/g/q を使用するため、
--- WezTerm のデフォルトキーバインドを無効化して干渉を防ぐ
+-- tmux prefix (Ctrl+a) との干渉を防ぐため、
+-- WezTerm のデフォルトキーバインドを無効化
 config.disable_default_key_bindings = true
 config.keys = {
   -- コピー・ペースト（Ctrl+Shift+C/V）

@@ -16,6 +16,9 @@ source $ZSH/oh-my-zsh.sh
 export EDITOR='nvim'
 export VISUAL='nvim'
 
+# Git並列実行時のindex.lock競合を軽減
+export GIT_OPTIONAL_LOCKS=0
+
 # Homebrew
 if [[ "$(uname -s)" == "Darwin" ]]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
