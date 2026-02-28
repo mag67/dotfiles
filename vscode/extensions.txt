@@ -1,0 +1,4 @@
+anthropic.claude-code
+jebbs.plantuml
+mechatroner.rainbow-csv
+openai.chatgpt
