@@ -8,12 +8,13 @@ local is_macos = wezterm.target_triple:find('darwin') ~= nil
 -- ===== WSL2連携（Windows のみ） =====
 if is_windows then
   config.default_domain = 'WSL:Ubuntu-24.04'
+  config.default_cwd = '/home/yusakukomuro'
 end
 
 -- ===== フォント =====
 -- JetBrains Mono Nerd Font（Nerd Font Symbols 内蔵フォールバックあり）
 config.font = wezterm.font('JetBrainsMono Nerd Font')
-config.font_size = is_macos and 14.0 or 11.0
+config.font_size = is_macos and 14.0 or 8.0
 
 -- ===== カラースキーム =====
 -- Neovim LazyVim のデフォルトと統一
@@ -35,6 +36,7 @@ config.default_cursor_style = 'SteadyBlock'
 
 -- ===== IME（日本語入力） =====
 config.use_ime = true
+config.ime_preedit_rendering = "System"
 
 -- ===== Neovim互換 =====
 config.use_dead_keys = false
