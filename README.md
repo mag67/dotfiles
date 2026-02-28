@@ -17,9 +17,6 @@ mise install     # CLI ツールをインストール
 ```sh
 # tmux セッション開始
 tmux new -s dev
-
-# Claude Code 並列起動（Git リポジトリ内で）
-claude-parallel feature-auth bugfix-123
 ```
 
 ## 含まれるもの
@@ -34,5 +31,4 @@ claude-parallel feature-auth bugfix-123
 | `lazygit/` | LazyGit | Git TUI |
 | `mise/` | mise | ランタイム・CLI 管理 |
 | `gh/` | GitHub CLI | GitHub 操作 |
-| `bin/` | claude-parallel 等 | ヘルパースクリプト |
 | `vscode/` | VSCode | エディタ（GUI）※install.sh で管理 |
