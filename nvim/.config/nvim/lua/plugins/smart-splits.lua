@@ -3,6 +3,7 @@ return {
   {
     "mrjones2014/smart-splits.nvim",
     version = ">=1.0.0",
+    lazy = false,
     keys = {
       { "<C-h>", function() require("smart-splits").move_cursor_left() end, desc = "左へ移動" },
       { "<C-j>", function() require("smart-splits").move_cursor_down() end, desc = "下へ移動" },
