@@ -1,9 +1,0 @@
-layout {
-    pane split_direction="vertical" {
-        pane name="Claude 1"
-        pane name="Claude 2"
-    }
-    pane size=1 borderless=true {
-        plugin location="status-bar"
-    }
-}
