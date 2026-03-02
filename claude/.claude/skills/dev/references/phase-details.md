@@ -17,20 +17,7 @@ Phase 0 で特定した各エンティティの「ゆりかごから墓場まで
 2. 各状態遷移（作成、更新、状態変更、終了）に対して「誰が、いつ、なぜ、この操作をするか」を考える
 3. 各操作に対して正常系・異常系のシナリオを導出する
 
-**例: 人材紹介の「契約」エンティティ**:
-```
-起案 → 条件交渉 → 合意 → 締結（署名・押印）→ 履行中 → [更新 | 終了 | 解除]
-```
-ここから導出されるシナリオ:
-- 契約の起案（新規作成）
-- 契約条件の交渉・修正
-- 契約の合意・締結
-- **契約書原本の保管・管理**（ライフサイクルに付随するドキュメント）
-- 契約の履行状況追跡
-- 契約の更新（条件変更あり/なし）
-- 契約の終了・解除（通常終了 / 途中解約 / 契約違反）
-
-**ドキュメントのライフサイクルも忘れない**: エンティティに付随する書類（契約書原本、覚書、NDA等）は、それ自体がライフサイクルを持つ。作成→保管→検索→閲覧→更新→廃棄のサイクルを考慮する。
+**例**: `起案 → 交渉 → 締結 → 履行中 → [更新 | 終了]` のようなライフサイクルから、各遷移ごとにシナリオを導出する。付随するドキュメント（原本保管、バージョン管理等）のライフサイクルも忘れずカバーする。
 
 ### 手法 2: ステークホルダー × ゴールマトリクス
 
@@ -42,15 +29,7 @@ Phase 0 で特定した各エンティティの「ゆりかごから墓場まで
 2. 各ステークホルダーのゴールを列挙する（「〜として、〜したい」形式で考える）
 3. 各ゴールに対して、達成できる場合（正常系）と達成できない場合（異常系）のシナリオを導出する
 
-**例: 人材紹介の契約管理**:
-
-| アクター | ゴール | 正常系 | 異常系 |
-|---------|--------|--------|--------|
-| 営業担当 | 新規契約を効率的に作成したい | 契約テンプレから作成 | 必須項目未入力で作成失敗 |
-| 営業担当 | 契約条件をすぐに確認したい | 契約詳細を検索・閲覧 | 権限のない契約を閲覧しようとする |
-| 管理者 | 契約の重要条件を一覧で把握したい | 手数料率・保証期間で絞り込み | 条件が未設定の契約がある |
-| 管理者 | 契約書原本を安全に管理したい | 原本のアップロード・保管 | ファイル形式不正、サイズ超過 |
-| 候補者 | 自分の契約状況を知りたい | 契約ステータスの確認 | まだ契約が存在しない |
+**例**: 各アクター（営業担当、管理者、候補者等）のゴールごとに正常系・異常系を導出する。例えば「営業担当 × 新規契約作成 → 正常: テンプレから作成 / 異常: 必須項目未入力」のように整理する。
 
 ### 手法 3: ビジネスルール駆動シナリオ
 
@@ -62,23 +41,13 @@ Phase 0 で抽出したビジネスルールごとに、ルールが「満たさ
 2. 各ルールに対して: ルール通りに処理される正常系シナリオを導出する
 3. 各ルールに対して: ルールに違反する操作が行われた場合のシナリオを導出する（バリデーション、エラー処理、フォールバック）
 
-**例**:
-- BR-01「手数料率は理論年収の30〜35%」→ 正常: 33%で契約作成 / 異常: 50%で作成しようとしてバリデーションエラー
-- BR-02「返金保証期間は入社後90日以内」→ 正常: 60日目に早期退職で返金処理 / 異常: 91日目に返金請求して期限切れ
-- BR-03「契約書は PDF 形式で保管」→ 正常: PDF アップロード成功 / 異常: Word ファイルをアップロードしようとしてエラー
+**例**: BR-01「手数料率は30〜35%」→ 正常: 33%で作成 / 異常: 50%でバリデーションエラー。各ルールに対してこのペアを作る。
 
 ### 手法 4: 横断的関心事の掃き出し
 
 個々の機能シナリオだけでなく、機能を横断する関心事を体系的にチェックする。
 
-| 観点 | チェックポイント | 例 |
-|------|----------------|-----|
-| 権限・認可 | 誰が何をできるか / できないか | 他人の契約を編集しようとする |
-| 監査ログ | 重要操作の追跡が必要か | 契約条件の変更履歴 |
-| 通知 | 状態変化時に誰に何を知らせるか | 契約更新期限の事前通知 |
-| ドキュメント管理 | 作成・保管・検索・閲覧・アクセス制御 | 契約書原本のバージョン管理 |
-| 同時実行 | 複数ユーザーの同時操作 | 同じ契約を2人が同時に編集 |
-| データ整合性 | 関連データ間の整合性 | 契約終了時の関連請求データの扱い |
+チェック観点: 権限・認可 / 監査ログ / 通知 / ドキュメント管理 / 同時実行 / データ整合性。各観点で「誰が何をできるか・できないか」「状態変化時に誰に知らせるか」等のシナリオを導出する。
 
 ### サブエージェントによる網羅性クロスチェック
 
@@ -103,7 +72,7 @@ Phase 0 で抽出したビジネスルールごとに、ルールが「満たさ
 
 ---
 
-## DDDモデリング詳細（Phase 4）
+## DDDモデリング詳細（Phase 5）
 
 ### 戦略的DDDに集中する理由
 
@@ -177,12 +146,15 @@ graph LR
 
 ---
 
-## UI/UXデザイン詳細（Phase 5）
+## UI/UXデザイン詳細（Phase 4）
 
 ### Storybook プロトタイピングの進め方
 
-Phase 5 の目的は「ユーザーがブラウザで動作確認できるプロトタイプ」を作ること。
+Phase 4 の目的は「ユーザーがブラウザで動作確認できるプロトタイプ」を作ること。
 完全な機能実装ではなく、UI の見た目・インタラクションの合意を得ることが目標。
+
+このフェーズの成果物は MVP レビューの入力になる。レビュアーは Storybook 上で「このアプリは使えるか？」を判断する。
+個別コンポーネントだけでなく、**ページ全体の見た目・状態遷移**を確認できるようにすることが重要。
 
 ### ステップ
 
@@ -223,39 +195,210 @@ graph TD
 
 #### 3. Storybook ストーリー作成
 
-プロトタイプとして以下の粒度で作成する:
+##### 3階層のストーリー設計
 
-- **個別コンポーネント**: 各状態（デフォルト、ローディング、エラー、空）のストーリー
-- **コンポジション**: 複数コンポーネントを組み合わせた画面レベルのストーリー
+Storybook のストーリーは以下の3階層で設計する。個別コンポーネントだけでは「パーツの動作確認」にしかならず、MVP として全体感をレビューできない。ページレベルのストーリーがあることで、レビュアーは「この画面でやりたいことができるか」を直感的に判断できる。
+
+| 階層 | 目的 | title 例 | layout |
+|------|------|----------|--------|
+| **Component** | 個別コンポーネントの状態・バリアント確認 | `Components/FilterPanel` | `centered` |
+| **Feature** | 機能単位のコンポーネント結合確認 | `Features/Search/SearchWithFilters` | `centered` or `padded` |
+| **Page** | ページ全体の見た目・ユーザー体験確認（MVP レビューの主対象） | `Pages/SearchPage` | `fullscreen` |
+
+**MVP レビューにとって最も重要なのは Page 階層**。レビュアーはここを見て「この画面は使えるか」を判断する。
+
+##### Component ストーリー
+
+新規作成する各コンポーネントに対して、全状態のストーリーを作成する。
 
 ```typescript
 // FilterPanel/FilterPanel.stories.tsx
 import type { Meta, StoryObj } from '@storybook/react';
 import { FilterPanel } from './FilterPanel';
+import { fn } from 'storybook/test';
 
 const meta = {
-  title: 'Features/Search/FilterPanel',
+  title: 'Components/FilterPanel',
   component: FilterPanel,
   tags: ['autodocs'],
+  parameters: { layout: 'centered' },
 } satisfies Meta<typeof FilterPanel>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  args: {
-    filters: mockFilters,
-    onFilterChange: fn(),
-  },
+  args: { filters: mockFilters, onFilterChange: fn() },
 };
-
 export const WithSelection: Story = { /* ... */ };
 export const Loading: Story = { /* ... */ };
 export const Empty: Story = { /* ... */ };
 ```
 
+##### Page ストーリー — プレゼンテーショナル分離パターン
+
+ページコンポーネントはデータ取得フック（`useQuery` 等）を含むため、そのまま Storybook に載せにくい。
+**表示部分を View コンポーネントとして分離**し、props で全データを受け取る形にする。これにより MSW 等の追加依存なしでページ全体をストーリー化できる。
+
+```typescript
+// pages/SearchPage/SearchPageView.tsx — 表示専用コンポーネント
+type SearchPageViewProps = {
+  results: SearchResult[];
+  isPending: boolean;
+  error: Error | null;
+  hasSearched: boolean;
+  onSearch: (query: string) => void;
+};
+
+export function SearchPageView(props: SearchPageViewProps) {
+  // JSX のみ。useQuery 等のデータ取得フックは含まない。
+  // 実際のページコンポーネント (SearchPage) がこの View を呼び出す。
+}
+```
+
+```typescript
+// pages/SearchPage/SearchPage.tsx — 実際のページ（既存のまま）
+export function SearchPage() {
+  const { data, isPending, error, search } = useSearchRestaurants();
+  return <SearchPageView results={data} isPending={isPending} error={error} onSearch={search} />;
+}
+```
+
+```typescript
+// pages/SearchPage/SearchPageView.stories.tsx
+import type { Meta, StoryObj } from '@storybook/react';
+import { SearchPageView } from './SearchPageView';
+import { fn } from 'storybook/test';
+
+const meta = {
+  title: 'Pages/SearchPage',
+  component: SearchPageView,
+  tags: ['autodocs'],
+  parameters: { layout: 'fullscreen' },  // ページは必ず fullscreen
+} satisfies Meta<typeof SearchPageView>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+// --- MVP レビュー用：全画面状態をカバー ---
+
+export const Initial: Story = {
+  args: {
+    results: [],
+    isPending: false,
+    error: null,
+    hasSearched: false,
+    onSearch: fn(),
+  },
+};
+
+export const Loading: Story = {
+  args: { ...Initial.args, isPending: true, hasSearched: true },
+};
+
+export const WithResults: Story = {
+  args: {
+    ...Initial.args,
+    hasSearched: true,
+    results: [/* モックデータ — 3〜5件 */],
+  },
+};
+
+export const NoResults: Story = {
+  args: { ...Initial.args, hasSearched: true, results: [] },
+};
+
+export const Error: Story = {
+  args: { ...Initial.args, error: new Error('サーバーエラー'), hasSearched: true },
+};
+```
+
+##### MVP レビュー用の状態チェックリスト
+
+ページレベルストーリーでは、以下の状態を必ずカバーする。レビュアーがこれらを順に確認することで「MVP として成立するか」を網羅的に判断できる。
+
+| 状態 | 何を確認するか |
+|------|---------------|
+| **Initial** | 初回訪問時の見た目。CTA が明確か |
+| **Loading** | 検索中の待ち体験。ユーザーが何が起きているか分かるか |
+| **WithResults** | 主要な成功パス。結果が見やすく、次のアクションが明確か |
+| **NoResults** | 結果ゼロの体験。ユーザーが何をすべきか分かるか |
+| **Error** | エラー時の体験。ユーザーが復帰できるか |
+
+オプションで追加すると有用な状態:
+- **ManyResults**: スクロール動作・ページネーション確認
+- **Mobile**: モバイルビューポートでのレイアウト確認
+
+##### ビューポートバリアント（レスポンシブ対応がある場合）
+
+レスポンシブ対応が要件に含まれる場合、ページストーリーのビューポートバリアントを追加する。
+
+```typescript
+export const WithResultsMobile: Story = {
+  ...WithResults,
+  parameters: {
+    viewport: { defaultViewport: 'mobile1' },
+  },
+};
+
+export const WithResultsTablet: Story = {
+  ...WithResults,
+  parameters: {
+    viewport: { defaultViewport: 'ipad' },
+  },
+};
+```
+
+##### Args Composition — 既存ストーリーのデータ再利用
+
+既にコンポーネントストーリーで定義したモックデータは、ページストーリーで再利用する。データの二重管理を避け、一貫性を保てる。
+
+```typescript
+import * as RestaurantCardStories from '../../components/RestaurantCard/RestaurantCard.stories';
+
+export const WithResults: Story = {
+  args: {
+    ...Initial.args,
+    hasSearched: true,
+    results: [
+      RestaurantCardStories.Default.args,
+      RestaurantCardStories.HighMatch.args,
+      RestaurantCardStories.MediumMatch.args,
+    ],
+  },
+};
+```
+
+##### インタラクションテスト（play 関数）
+
+ページストーリーに `play` 関数を追加すると、Storybook の Interactions パネルでユーザーフローをステップ実行できる。レビュアーが「検索 → 結果表示」の流れを視覚的に確認でき、自動テストとしても機能する。
+
+```typescript
+import { expect, fn, userEvent, within } from 'storybook/test';
+
+export const SearchFlow: Story = {
+  args: { ...Initial.args, onSearch: fn() },
+  play: async ({ canvasElement, args, step }) => {
+    const canvas = within(canvasElement);
+
+    await step('初期画面を確認', async () => {
+      await expect(canvas.getByRole('textbox')).toBeInTheDocument();
+    });
+
+    await step('検索を実行', async () => {
+      await userEvent.type(canvas.getByRole('textbox'), 'ベトナム料理');
+      await userEvent.click(canvas.getByRole('button', { name: /検索/i }));
+    });
+
+    await step('コールバックが呼ばれたことを確認', async () => {
+      await expect(args.onSearch).toHaveBeenCalledWith('ベトナム料理');
+    });
+  },
+};
+```
+
 **重要**: プロトタイプ段階では:
-- API 呼び出しはモックデータで代替
+- API 呼び出しはモックデータで代替（プレゼンテーショナル分離で対応）
 - 状態管理は最小限（ローカル state のみ）
 - スタイリングはプロジェクトの既存パターンに合わせる（shadcn/ui + Tailwind）
 - 既存コンポーネントの配置場所・命名規約に従う
