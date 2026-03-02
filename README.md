@@ -31,4 +31,5 @@ tmux new -s dev
 | `lazygit/` | LazyGit | Git TUI |
 | `mise/` | mise | ランタイム・CLI 管理 |
 | `gh/` | GitHub CLI | GitHub 操作 |
+| `claude/` | Claude Code | AI コーディングアシスタント（Skills・CLAUDE.md） |
 | `vscode/` | VSCode | エディタ（GUI）※install.sh で管理 |

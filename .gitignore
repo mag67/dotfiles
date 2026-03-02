@@ -26,3 +26,6 @@ Thumbs.db
 # Codex CLI ランタイムファイル
 codex/.codex/history/
 codex/.codex/cache/
+
+# Claude Code Skills 評価ワークスペース
+*-workspace/
