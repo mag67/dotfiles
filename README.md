@@ -33,3 +33,5 @@ tmux new -s dev
 | `gh/` | GitHub CLI | GitHub 操作 |
 | `claude/` | Claude Code | AI コーディングアシスタント（Skills・CLAUDE.md） |
 | `vscode/` | VSCode | エディタ（GUI）※install.sh で管理 |
+
+`claude/.claude/skills` は共有スキル置き場 `../.agents/skills` を参照する symlink として管理する。
